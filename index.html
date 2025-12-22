@@ -90,6 +90,193 @@
             padding: 40px;
         }
 
+        /* Онлайн браузер плитками */
+        .browser-panel {
+            background: var(--bg-light);
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .url-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .url-form input {
+            flex: 1;
+            min-width: 240px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1em;
+        }
+
+        .url-form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 20px rgba(107, 70, 193, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .url-form button.secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            box-shadow: none;
+        }
+
+        .url-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(107, 70, 193, 0.25);
+        }
+
+        .url-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0 20px;
+        }
+
+        .url-chip {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 8px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.95em;
+        }
+
+        .url-chip strong {
+            color: var(--text-dark);
+        }
+
+        .url-chip button {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1.1em;
+            line-height: 1;
+        }
+
+        .tile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .tile {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tile.loading::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(107, 70, 193, 0.05), rgba(107, 70, 193, 0.1), rgba(107, 70, 193, 0.05));
+            background-size: 200% 100%;
+            animation: shimmer 1.4s ease infinite;
+        }
+
+        @keyframes shimmer {
+            from { background-position: 200% 0; }
+            to { background-position: -200% 0; }
+        }
+
+        .tile-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tile-favicon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .tile-title {
+            font-size: 1.05em;
+            color: var(--text-dark);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .tile-description {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .tile-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        .tile-footer a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .status-bar {
+            margin-top: 16px;
+            color: var(--text-light);
+            font-size: 0.95em;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+        }
+
         .section {
             margin-bottom: 50px;
             animation: fadeIn 0.6s ease-in;
@@ -907,6 +1094,24 @@
                     <p>Помните: камни - это инструменты, но главное - ваша искренняя практика, благие намерения и регулярность.</p>
                 </div>
             </section>
+
+            <!-- Онлайн браузер -->
+            <section class="section">
+                <h2 class="section-title">🌐 Онлайн браузер (плитки)</h2>
+                <div class="browser-panel">
+                    <form class="url-form" id="url-form">
+                        <input type="url" id="url-input" placeholder="https://example.com" required>
+                        <button type="submit">Добавить URL</button>
+                        <button type="button" class="secondary" id="load-demo">Загрузить примеры</button>
+                    </form>
+                    <div class="url-list" id="url-list"></div>
+                    <div class="tile-grid" id="tile-grid"></div>
+                    <div class="status-bar" id="status-bar">
+                        <span class="pill">Источников: <strong id="source-count">0</strong></span>
+                        <span class="pill">Загружено: <strong id="loaded-count">0</strong></span>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- Футер -->
@@ -939,6 +1144,136 @@
         document.querySelectorAll('.section').forEach(section => {
             section.classList.add('fade-in');
             observer.observe(section);
+        });
+
+        // Плиточный онлайн-браузер
+        const urlForm = document.getElementById('url-form');
+        const urlInput = document.getElementById('url-input');
+        const tileGrid = document.getElementById('tile-grid');
+        const urlList = document.getElementById('url-list');
+        const statusBar = document.getElementById('status-bar');
+        const sourceCount = document.getElementById('source-count');
+        const loadedCount = document.getElementById('loaded-count');
+        const demoBtn = document.getElementById('load-demo');
+
+        const demoUrls = [
+            'https://developer.mozilla.org',
+            'https://ru.wikipedia.org/wiki/JavaScript',
+            'https://habr.com/ru/flows/develop/',
+            'https://news.ycombinator.com'
+        ];
+
+        let urls = [];
+        let loaded = 0;
+
+        function updateStatus() {
+            sourceCount.textContent = urls.length;
+            loadedCount.textContent = loaded;
+        }
+
+        function createChip(url) {
+            const chip = document.createElement('div');
+            chip.className = 'url-chip';
+            chip.innerHTML = `<strong>${new URL(url).hostname}</strong><span>${url}</span>`;
+
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.innerHTML = '✕';
+            removeBtn.onclick = () => {
+                urls = urls.filter(u => u !== url);
+                chip.remove();
+                const tile = document.querySelector(\`[data-url=\"\${url}\"]\`);
+                if (tile) tile.remove();
+                updateStatus();
+            };
+
+            chip.appendChild(removeBtn);
+            urlList.appendChild(chip);
+        }
+
+        function renderTile(url, meta) {
+            const tile = document.createElement('article');
+            tile.className = 'tile';
+            tile.dataset.url = url;
+
+            tile.innerHTML = `
+                <div class="tile-header">
+                    <div class="tile-favicon">${meta?.favicon || '🌐'}</div>
+                    <div class="tile-title">${meta?.title || 'Без названия'}</div>
+                </div>
+                <p class="tile-description">${meta?.description || 'Описание не найдено.'}</p>
+                <div class="tile-footer">
+                    <span>${new URL(url).hostname}</span>
+                    <a href="${url}" target="_blank" rel="noopener noreferrer">Открыть →</a>
+                </div>
+            `;
+
+            tileGrid.appendChild(tile);
+        }
+
+        async function fetchMetadata(url) {
+            const proxyUrl = `https://r.jina.ai/${url}`;
+            const tile = document.createElement('article');
+            tile.className = 'tile loading';
+            tile.dataset.url = url;
+            tile.innerHTML = `
+                <div class="tile-header">
+                    <div class="tile-favicon">⌛</div>
+                    <div class="tile-title">Загружаем...</div>
+                </div>
+                <p class="tile-description">Получаем данные сайта.</p>
+                <div class="tile-footer">
+                    <span>${new URL(url).hostname}</span>
+                    <span>⏳</span>
+                </div>
+            `;
+            tileGrid.appendChild(tile);
+
+            try {
+                const res = await fetch(proxyUrl);
+                const text = await res.text();
+
+                const titleMatch = text.match(/<title>(.*?)<\\/title>/i);
+                const descMatch = text.match(/<meta name=\"description\" content=\"(.*?)\"/i);
+
+                const meta = {
+                    title: titleMatch ? titleMatch[1].slice(0, 80) : null,
+                    description: descMatch ? descMatch[1].slice(0, 180) : null,
+                    favicon: new URL(url).hostname.split('.').slice(-2).join('.').slice(0, 2).toUpperCase()
+                };
+
+                tile.remove();
+                renderTile(url, meta);
+                loaded += 1;
+            } catch (e) {
+                tile.classList.remove('loading');
+                tile.querySelector('.tile-title').textContent = 'Ошибка загрузки';
+                tile.querySelector('.tile-description').textContent = 'Не удалось получить данные. Проверьте доступность сайта.';
+                tile.querySelector('.tile-footer span:last-child').textContent = '⚠️';
+            } finally {
+                updateStatus();
+            }
+        }
+
+        urlForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const url = urlInput.value.trim();
+            if (!url || urls.includes(url)) return;
+            urls.push(url);
+            createChip(url);
+            fetchMetadata(url);
+            updateStatus();
+            urlInput.value = '';
+        });
+
+        demoBtn.addEventListener('click', () => {
+            demoUrls.forEach(u => {
+                if (urls.includes(u)) return;
+                urls.push(u);
+                createChip(u);
+                fetchMetadata(u);
+            });
+            updateStatus();
         });
     </script>
 </body>
